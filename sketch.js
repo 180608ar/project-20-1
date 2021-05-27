@@ -1,41 +1,38 @@
-var box1,box2;
+var car,wall;
+var speed,weight;
 
 
 function setup(){
+  createCanvas(1600,400);
 
-createCanvas(600,600);
+  wall = createSprite(1350,200,60,100);
+  car = createSprite(50,200,50,50);
 
-box1 = createSprite(300,300,100,50);
-box1.shapeColor ="blue";
+  speed = random(55,90);
+  weight = random(400,1500);
 
-box2 = createSprite(100,300,50,50);
-box2.shapeColor ="red";
+  car.velocityX = speed;
 
-box1.debug = true;
-box2.debug = true;
 }
 
 function draw(){
-background("black");
 
-box2.x = mouseX;
-box2.y = mouseY;
+  background("black");
 
-if(box1.x-box2.x <= (box1.width + box2.width)/2
-  && box2.x-box1.x <= (box1.width + box2.width)/2
-  && box1.y-box2.y <= (box1.height + box2.height)/2
-  && box2.y-box1.y <= (box1.height + box2.height)/2
-  ) {
-  box1.shapeColor = "pink";
-  box2.shapeColor = "pink";
+  if(wall.x-car.x < (car.width+wall.width)/2){
+  car.velocityX=0;
+  var deformation=0.5 * weight * speed * speed/22509;
+  if(deformation>180){
+  car.shapeColor = "red";
+  }
+  if(deformation<180 && deformation>100){
+  car.shapeColor = "blue";
+  }
+  if(deformation<100){
+  car.shapeColor = "green";
+  }
 }
 
-else{
-  box1.shapeColor ="blue";
-  box2.shapeColor ="red";
-}
-
-  drawSprites();
-
+ drawSprites();
 
 }
